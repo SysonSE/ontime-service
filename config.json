@@ -1,6 +1,6 @@
 {
   "allowedHosts": {
-    "production": ["ontime-service-staging.herokuapp"],
+    "production": ["ontime-service-staging.herokuapp.com"],
     "development": ["localhost"]
   }
 }
