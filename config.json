@@ -1,0 +1,6 @@
+{
+  "allowedHosts": {
+    "production": ["nogonframtidaprodurl"],
+    "development": ["localhost"]
+  }
+}

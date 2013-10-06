@@ -1,0 +1,14 @@
+node_modules
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+.DS_STORE
+
+# Project Files
+.idea/**
+
+# Log Files
+*.log
