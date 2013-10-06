@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express');
 var http = require('http');
-var app = express();
+var app = module.exports = express();
 var routes = require('./routes');
 var monk = require('monk');
 var db = monk('localhost:27017/time');
@@ -36,5 +36,5 @@ app.get('/companies', routes.companies(db));
 app.get('/companies/:orgnr', routes.companiesByOrgNr(db));
 
 http.createServer(app).listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
+	console.log('OnTime servicelistening on port ' + app.get('port'));
 });
