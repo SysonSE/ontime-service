@@ -26,6 +26,8 @@ if (env === 'development') {
 /* alla requests går igenom den här metoden först,
  när next anropas fortsätter anropet vidare till routen */
 app.all('*', function(req, res, next){
+	console.log('ENV:' + env);
+	console.log('CONFIG: ' + config);
 	if(_.contains(config.allowedHosts[env], req.host)){
 		next();
 	} else {
