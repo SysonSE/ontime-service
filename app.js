@@ -8,9 +8,8 @@ var monk = require('monk');
 var db = monk('localhost:27017/time');
 var env = app.get('env');
 var config = require('./config.json');
-var	_ = require('underscore'); //utility-library typ som jquery
+var	_ = require('underscore');
 
-// mongomoduler
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/time');
@@ -23,11 +22,7 @@ if (env === 'development') {
   app.use(express.errorHandler());
 }
 
-/* alla requests går igenom den här metoden först,
- när next anropas fortsätter anropet vidare till routen */
 app.all('*', function(req, res, next){
-	console.log('ENV:' + env);
-	console.log('CONFIG: ' + config);
 	if(_.contains(config.allowedHosts[env], req.host)){
 		next();
 	} else {
