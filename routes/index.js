@@ -1,6 +1,10 @@
 exports.index = function(req, res){
-  res.send('this is an awesome service.');
-}
+  res.send(JSON.stringify({
+    app: 'ontime',
+    awesomeness: 'super-awesome',
+    version: 'alpha'
+  }));
+};
 
 exports.companies = function(db) {
     return function(req, res) {
