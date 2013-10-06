@@ -29,6 +29,7 @@ app.all('*', function(req, res, next){
 	if(_.contains(config.allowedHosts[env], req.host)){
 		next();
 	} else {
+		console.log('request from hostname: ' + req.host + ' not allowed.');
 		next(new Error(401));
 	}
 });
