@@ -1,6 +1,7 @@
 {
   "allowedHosts": {
-    "production": ["ontime-service-staging.herokuapp.com"],
+    "production": ["framtidaprodurl"],
+    "staging": ["ontime-service-staging.herokuapp.com"],
     "development": ["localhost"]
   }
 }
