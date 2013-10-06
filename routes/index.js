@@ -1,9 +1,19 @@
+"use strict";
+var app = require('../app');
+
 exports.index = function(req, res){
-  res.send(JSON.stringify({
-    app: 'ontime',
-    awesomeness: 'super-awesome',
-    version: 'alpha'
-  }));
+
+    res.send(JSON.stringify({
+        app: 'ontime',
+        awesomeness: 'super-awesome',
+        version: 'alpha',
+        routes: {
+            GET: app.routes['get'],
+            POST: app.routes['post'],
+            PUT: app.routes['put'],
+            DELETE: app.routes['delete']
+        }
+    }));
 };
 
 exports.companies = function(db) {
