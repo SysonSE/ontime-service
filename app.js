@@ -1,16 +1,14 @@
+"use strict";
 var express = require('express');
 var http = require('http');
-var path = require('path');
 var app = express();
 var routes = require('./routes');
-var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/time');
 var env = app.get('env');
 var config = require('./config.json');
 var	_ = require('underscore');
 
-var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/time');
 
@@ -19,7 +17,7 @@ app.use(express.logger('dev'));
 app.use(express.methodOverride());
 
 if (env === 'development') {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
 
 app.all('*', function(req, res, next){
@@ -38,5 +36,5 @@ app.get('/companies', routes.companies(db));
 app.get('/companies/:orgnr', routes.companiesByOrgNr(db));
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });

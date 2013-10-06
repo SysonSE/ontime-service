@@ -26,4 +26,4 @@ exports.companiesByOrgNr = function(db) {
             res.send(json);
         });
     };
-}
+};
