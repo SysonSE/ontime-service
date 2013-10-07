@@ -37,3 +37,7 @@ exports.companiesByOrgNr = function(db) {
         });
     };
 };
+
+exports.secretArea = function(req, res) {
+    res.send('you made it through to the secret area');
+};
