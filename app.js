@@ -28,6 +28,10 @@ app.all('*', function(req, res, next){
 		next();
 	} else {
 		console.log('request from hostname: ' + req.host + ' not allowed.');
+		res.json({
+			success: false,
+			message: 'Illegal host'
+		});
 		next(new Error(401));
 	}
 });
@@ -38,7 +42,7 @@ app.get('/companies', routes.companies(db));
 
 app.get('/companies/:orgnr', routes.companiesByOrgNr(db));
 
-app.get('/secretArea', auth, routes.secretArea);
+app.get('/login', auth, routes.login);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('OnTime service listening on port ' + app.get('port'));

@@ -12,10 +12,8 @@ describe('API tests', function(){
 		});
 
 		it('should contain routes', function(done){
-			request(app).get('/').end(function(err, res){
-				expect(res).to.exist;
-				var jsonResponse = JSON.stringify(res.text);
-				expect(jsonResponse.routes).to.exist;
+			request(app).get('/').expect(200).end(function(err, res){
+				expect(JSON.parse(res.text).routes).to.be.ok();
 				done();
 			});
 		});
@@ -33,17 +31,17 @@ describe('Authentication', function(){
 
 	describe('Failing auth', function(){
 		it('should fail when no credentials set', function(done){
-			request(app).get('/secretArea').expect(401, done);
+			request(app).get('/login').expect(401, done);
 		});
 
 		it('should fail when wrong credentials set', function(done){
-			request(app).get('/secretArea').auth('derp', 'flerp').expect(401, done);
+			request(app).get('/login').auth('derp', 'flerp').expect(401, done);
 		});
 	});
 
 	describe('Successful auth', function(){
 		it('should succeed with status code 200', function(done){
-			request(app).get('/secretArea').auth('jdog', 'hitler').expect(200, done);
+			request(app).get('/login').auth('jdog', 'hitler').expect(200, done);
 		});
 	});
 

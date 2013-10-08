@@ -4,9 +4,6 @@ var app = require('../app');
 exports.index = function(req, res){
 
     res.send(JSON.stringify({
-        app: 'ontime',
-        awesomeness: 'super-awesome',
-        version: 'alpha',
         routes: {
             GET: app.routes['get'],
             POST: app.routes['post'],
@@ -21,8 +18,7 @@ exports.companies = function(db) {
         var collection = db.get('company');
 
         collection.find({}, {}, function(e, docs){
-            var json = JSON.stringify(docs);
-            res.send(json);
+            res.json(docs);
         });
     };
 };
@@ -32,12 +28,14 @@ exports.companiesByOrgNr = function(db) {
         var companies = db.get('company');
 
         companies.find({'orgnummer' : req.params.orgnr}, '-email', function(e, docs) {
-            var json = JSON.stringify(docs);
-            res.send(json);
+            res.json(docs);
         });
     };
 };
 
-exports.secretArea = function(req, res) {
-    res.send('you made it through to the secret area');
+exports.login = function(req, res) {
+    res.json(200, {
+        success: true,
+        message: 'Login successful!'
+    });
 };
