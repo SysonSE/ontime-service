@@ -6,7 +6,7 @@ var express = require('express'),
 	monk = require('monk'),
 	db = monk('localhost:27017/time'),
 	env = app.get('env'),
-	config = require('./config.json'),
+	config = require('config'),
 	_ = require('underscore'),
 	monk = require('monk'),
 	db = monk('localhost:27017/time');
@@ -24,7 +24,7 @@ if (env === 'development') {
 }
 
 app.all('*', function(req, res, next){
-	if(_.contains(config.allowedHosts[env], req.host)){
+	if(_.contains(config.allowedHosts, req.host)){
 		next();
 	} else {
 		console.log('request from hostname: ' + req.host + ' not allowed.');
@@ -41,7 +41,7 @@ app.get('/companies/:orgnr', routes.companiesByOrgNr(db));
 app.get('/secretArea', auth, routes.secretArea);
 
 http.createServer(app).listen(app.get('port'), function(){
-	console.log('OnTime servicelistening on port ' + app.get('port'));
+	console.log('OnTime service listening on port ' + app.get('port'));
 });
 
 function fakeDatabaseLookup(user, pass, fn){
