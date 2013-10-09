@@ -22,9 +22,12 @@ app.use(express.methodOverride());
 if (env === 'development') {
 	app.use(express.errorHandler());
 }
-
+/*
 app.all('*', function(req, res, next){
 	if(_.contains(config.allowedHosts, req.host)){
+
+        console.log("auth passed");
+
 		next();
 	} else {
 		console.log('request from hostname: ' + req.host + ' not allowed.');
@@ -34,9 +37,12 @@ app.all('*', function(req, res, next){
 		});
 		next(new Error(401));
 	}
-});
+});*/
 
 app.get('/', function(req, res){
+
+    console.log("get root");
+
     res.send(JSON.stringify({
         routes: {
             GET: app.routes['get'],
