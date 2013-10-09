@@ -1,7 +1,7 @@
 /* global describe:true, it:true*/
 "use strict";
 var request = require('supertest');
-var expect = require('expect.js'); //expect-tyle assertions
+var expect = require('expect.js');
 var app = require('../app');
 
 describe('API tests', function(){

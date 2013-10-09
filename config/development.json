@@ -1,4 +1,5 @@
 {
-  "allowedHosts": ["localhost", "127.0.0.1"]
+  "allowedHosts": ["localhost", "127.0.0.1"],
+  "dbUri": "mongodb://heroku_app18512758:ug4pmg017lp9b6imp6u5vggsfi@ds047948.mongolab.com:47948/heroku_app18512758"
 }
   
