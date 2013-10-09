@@ -5,12 +5,15 @@ var express = require('express'),
 	env = app.get('env'),
 	config = require('config'),
 	_ = require('underscore'),
+	db = require('./lib/db'),
 	loginApi = require('./lib/login-api'),
-	companyApi = require('./lib/company-api');
+	companyApi = require('./lib/company-api'),
+	userApi = require('./lib/user-api');
 
 /* Mount subapplications */
 app.use(loginApi);
 app.use(companyApi);
+app.use(userApi);
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.logger('dev'));

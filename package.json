@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "mocha -R spec"
+    "test": "mocha -R spec --timeout 5000"
   },
   "engines": {
     "node": "0.10.x",

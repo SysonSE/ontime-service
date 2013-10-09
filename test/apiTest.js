@@ -1,8 +1,10 @@
 /* global describe:true, it:true*/
 "use strict";
-var request = require('supertest');
-var expect = require('expect.js');
-var app = require('../app');
+var request = require('supertest'),
+	expect = require('expect.js'),
+	app = require('../app'),
+	username = 'jdog',
+	password = 'hitler';
 
 describe('API tests', function(){
 	describe('/ (root url)', function(){
@@ -25,6 +27,13 @@ describe('API tests', function(){
 			request(app).get('/companies').expect(200, done);
 		});
 	});
+
+	describe('/user', function(){
+
+		it('should save a user', function(done){
+			request(app).get('/user').auth(username, password).expect(200, done);
+		});
+	});
 });
 
 describe('Authentication', function(){
@@ -41,7 +50,7 @@ describe('Authentication', function(){
 
 	describe('Successful auth', function(){
 		it('should succeed with status code 200', function(done){
-			request(app).get('/login').auth('jdog', 'hitler').expect(200, done);
+			request(app).get('/login').auth(username, password).expect(200, done);
 		});
 	});
 
