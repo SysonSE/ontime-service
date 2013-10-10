@@ -34,11 +34,6 @@ app.use(express.basicAuth(function(user, pass, fn) {
 	fakeDatabaseLookup(user, pass, fn);
 }));
 
-/* Mount subapplications */
-app.use(loginApi);
-app.use(companyApi);
-app.use(userApi);
-
 app.set('port', process.env.PORT || 3000);
 app.use(express.logger('dev'));
 app.use(express.methodOverride());
@@ -47,6 +42,11 @@ app.use(express.bodyParser());
 if (env === 'development') {
 	app.use(express.errorHandler());
 }
+
+/* Mount subapplications */
+app.use(loginApi);
+app.use(companyApi);
+app.use(userApi);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('OnTime service listening on port ' + app.get('port'));
