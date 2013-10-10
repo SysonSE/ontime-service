@@ -25,7 +25,11 @@ describe('API tests', function(){
 	describe('/user', function(){
 
 		it('should save a user', function(done){
-			request(app).get('/user').auth(username, password).expect(200, done);
+			request(app).post('/user').auth(username, password).expect(200, done);
+		});
+
+		it('should get users', function(done){
+			request(app).get('/users').auth(username, password).expect(200, done);
 		});
 	});
 });

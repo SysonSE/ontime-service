@@ -10,6 +10,9 @@ var express = require('express'),
 	companyApi = require('./lib/company-api'),
 	userApi = require('./lib/user-api');
 
+/* by placing this route before 
+the auth rules it is not affected and 
+therefor always accessible */
 app.get('/', function(req, res){
     res.send('Hello says the Ontime Service.');
 });
