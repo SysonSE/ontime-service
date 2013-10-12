@@ -14,7 +14,9 @@ var express = require('express'),
 the auth rules it is not affected and 
 therefor always accessible */
 app.get('/', function(req, res){
-    res.send('Hello says the Ontime Service.');
+    res.jsonp({
+		greetings: 'Hello says the Ontime Service!'
+    });
 });
 
 app.all('*', function(req, res, next){
