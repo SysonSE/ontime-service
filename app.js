@@ -37,11 +37,11 @@ app.use(express.basicAuth(function(user, pass, fn) {
 }));
 
 app.set('port', process.env.PORT || 3000);
-app.use(express.logger('dev'));
 app.use(express.methodOverride());
 app.use(express.bodyParser());
 
 if (env === 'development') {
+	app.use(express.logger('dev'));
 	app.use(express.errorHandler());
 }
 
