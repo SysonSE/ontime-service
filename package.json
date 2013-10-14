@@ -19,6 +19,8 @@
     "supertest": "0.8.0",
     "expect.js": "0.2.0",
     "config": "0.4.30",
-    "cors": "~2.0.0"
+    "cors": "~2.0.0",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6"
   }
 }
