@@ -1,4 +1,4 @@
 {
-  "allowedOrigins": ["http://ontime-webapp-production.herokuapp.com/"]
+  "allowedOrigins": ["http://ontime-webapp-production.herokuapp.com"]
 }
   
