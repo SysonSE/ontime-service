@@ -2,6 +2,7 @@
 var express = require('express'),
 	http = require('http'),
 	app = module.exports = express(),
+	cors = require('cors'),
 	env = app.get('env'),
 	config = require('config'),
 	_ = require('underscore'),
@@ -19,18 +20,17 @@ app.get('/', function(req, res){
     });
 });
 
-app.all('*', function(req, res, next){
-	if(_.contains(config.allowedHosts, req.host)){
-		next();
-	} else {
-		console.log('request from hostname: ' + req.host + ' not allowed.');
-		res.json({
-			success: false,
-			message: 'Illegal host'
-		});
-		next(new Error(401));
+var corsOptionsDelegate = function(req, callback){
+	var corsOptions;
+	if(config.allowedOrigins.indexOf(req.header('Origin')) !== -1){
+		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+	}else{
+		corsOptions = { origin: false }; // disable CORS for this request
 	}
-});
+	callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+app.use(cors(corsOptionsDelegate));
 
 app.use(express.basicAuth(function(user, pass, fn) {
 	fakeDatabaseLookup(user, pass, fn);
