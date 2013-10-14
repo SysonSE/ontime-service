@@ -9,7 +9,23 @@ var express = require('express'),
 	db = require('./lib/db'),
 	loginApi = require('./lib/login-api'),
 	companyApi = require('./lib/company-api'),
-	userApi = require('./lib/user-api');
+	userApi = require('./lib/user-api'),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy;;
+
+
+
+var corsOptionsDelegate = function(req, callback){
+	var corsOptions;
+	if(_.contains(config.allowedOrigins, req.header('Origin'))){
+		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+	}else{
+		corsOptions = { origin: false }; // disable CORS for this request
+	}
+	callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+app.use(cors(corsOptionsDelegate));
 
 /* by placing this route before 
 the auth rules it is not affected and 
@@ -20,21 +36,27 @@ app.get('/', function(req, res){
     });
 });
 
-var corsOptionsDelegate = function(req, callback){
-	var corsOptions;
-	if(config.allowedOrigins.indexOf(req.header('Origin')) !== -1){
-		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
-	}else{
-		corsOptions = { origin: false }; // disable CORS for this request
-	}
-	callback(null, corsOptions); // callback expects two parameters: error and options
-};
+/*
+passport.use(new LocalStrategy(function(username, password, done) {
+	console.log(username + ' ' + password);
+	if(username != 'derp')
+		return done('error');
 
-app.use(cors(corsOptionsDelegate));
-
-app.use(express.basicAuth(function(user, pass, fn) {
-	fakeDatabaseLookup(user, pass, fn);
+	var user = {
+		derp: 'flerp'
+	};
+	return done(null, user);
 }));
+*/
+
+/*app.use(passport.initialize());
+app.use(ensureAuthenticated);
+*/
+
+
+/*app.use(express.basicAuth(function(user, pass, fn) {
+	fakeDatabaseLookup(user, pass, fn);
+}));*/
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.methodOverride());
@@ -53,6 +75,13 @@ app.use(userApi);
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('OnTime service listening on port ' + app.get('port'));
 });
+
+/*function ensureAuthenticated(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next(); 
+	}
+	res.send(403);
+}*/
 
 function fakeDatabaseLookup(user, pass, fn){
 	/*
