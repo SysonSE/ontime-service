@@ -11,9 +11,7 @@ var express = require('express'),
 	companyApi = require('./lib/company-api'),
 	userApi = require('./lib/user-api'),
 	passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy;;
-
-
+	BasicStrategy = require('passport-http').BasicStrategy;
 
 var corsOptionsDelegate = function(req, callback){
 	var corsOptions;
@@ -36,27 +34,15 @@ app.get('/', function(req, res){
     });
 });
 
-/*
-passport.use(new LocalStrategy(function(username, password, done) {
-	console.log(username + ' ' + password);
-	if(username != 'derp')
-		return done('error');
+passport.use(new BasicStrategy(
+	function(username, password, done) {
+		return fakeDatabaseLookup(username, password, done);
+	}
+));
 
-	var user = {
-		derp: 'flerp'
-	};
-	return done(null, user);
-}));
-*/
+app.use(passport.initialize());
+app.use(passport.authenticate('basic', { session: false }));
 
-/*app.use(passport.initialize());
-app.use(ensureAuthenticated);
-*/
-
-
-/*app.use(express.basicAuth(function(user, pass, fn) {
-	fakeDatabaseLookup(user, pass, fn);
-}));*/
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.methodOverride());
@@ -76,25 +62,14 @@ http.createServer(app).listen(app.get('port'), function(){
 	console.log('OnTime service listening on port ' + app.get('port'));
 });
 
-/*function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) {
-		return next(); 
-	}
-	res.send(403);
-}*/
-
-function fakeDatabaseLookup(user, pass, fn){
-	/*
-		fn är en callback-function som vi behöver invokera för att tala om för 
-		express att autentiseringen lyckades (true) eller misslyckades (false).
-		Varför man passar in 'null' först är för att express använder konventionen 
-		(liksom de flesta node-rameverk)
-		att alla callbacks tar först ett error-argument (eller null om det inte existerar),
-		följt av resten av argumenten. 
-	*/
-	if(user === 'jdog' && pass === 'hitler'){
-		fn(null, true);
+function fakeDatabaseLookup(username, pass, fn){
+	if(username === 'jdog' && pass === 'hitler'){
+		var user = {
+			name: 'derp',
+			role: 'clerk'
+		};
+		return fn(null, user);
 	} else {
-		fn(null, false);
+		return fn(null, false);
 	}
 }

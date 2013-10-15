@@ -21,6 +21,6 @@
     "config": "0.4.30",
     "cors": "~2.0.0",
     "passport": "~0.1.17",
-    "passport-local": "~0.1.6"
+    "passport-http": "~0.2.2"
   }
 }

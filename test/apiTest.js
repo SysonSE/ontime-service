@@ -38,11 +38,11 @@ describe('Authentication', function(){
 
 	describe('Failing auth', function(){
 		it('should fail when no credentials set', function(done){
-			request(app).get('/login').expect(200, done);
+			request(app).get('/login').expect(401, done);
 		});
 
 		it('should fail when wrong credentials set', function(done){
-			request(app).get('/login').auth('derp', 'flerp').expect(200, done);
+			request(app).get('/login').auth('derp', 'flerp').expect(401, done);
 		});
 	});
 
