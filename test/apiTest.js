@@ -38,17 +38,17 @@ describe('Authentication', function(){
 
 	describe('Failing auth', function(){
 		it('should fail when no credentials set', function(done){
-			request(app).get('/login').expect(401, done);
+			request(app).post('/login').expect(401, done);
 		});
 
 		it('should fail when wrong credentials set', function(done){
-			request(app).get('/login').auth('derp', 'flerp').expect(401, done);
+			request(app).post('/login').auth('derp', 'flerp').expect(401, done);
 		});
 	});
 
 	describe('Successful auth', function(){
 		it('should succeed with status code 200', function(done){
-			request(app).get('/login').auth(username, password).expect(200, done);
+			request(app).post('/login').auth(username, password).expect(200, done);
 		});
 	});
 
